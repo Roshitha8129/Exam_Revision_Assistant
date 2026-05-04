@@ -1,0 +1,34 @@
+# -----------------------------
+# 1. Environment & Secrets (CRITICAL)
+# -----------------------------
+.env
+.env.local
+.env.*.local
+
+# -----------------------------
+# 2. Python / Backend
+# -----------------------------
+backend/venv/
+backend/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+# Ignore uploaded PDFs so you don't push user data
+*.pdf 
+
+# -----------------------------
+# 3. Node.js / React Frontend
+# -----------------------------
+**/node_modules/
+**/dist/
+**/dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# -----------------------------
+# 4. OS Files
+# -----------------------------
+.DS_Store
+Thumbs.db

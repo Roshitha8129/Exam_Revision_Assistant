@@ -17,7 +17,7 @@ client = Groq(api_key=api_key)
 # We'll use Llama 3.1 8B (Super fast and reliable on Groq)
 MODEL_NAME = "llama-3.1-8b-instant"
 
-def generate_text(prompt, max_tokens=1200, temp=0.7):
+def generate_text(prompt, max_tokens=900, temp=0.7):
     """Core generation function using Groq API."""
     response = client.chat.completions.create(
         model=MODEL_NAME,

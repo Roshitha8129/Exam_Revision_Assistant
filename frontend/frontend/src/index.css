@@ -1,104 +1,183 @@
-/* src/App.css */
 :root {
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #f8fafc;
   --primary: #3b82f6;
-  --primary-hover: #2563eb;
-  --bg-color: #f1f5f9;
-  --card-bg: #ffffff;
-  --text-main: #1e293b;
-  --text-light: #64748b;
-  --border: #e2e8f0;
+  --accent: #10b981;
+  --bg-main: #f8fafc;
+  --card-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
 body {
   margin: 0;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-main);
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-main);
+  color: #0f172a;
 }
 
-.app-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 2rem;
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
 }
 
-.header {
-  text-align: center;
-  margin-bottom: 3rem;
+/* Sidebar Styling */
+.sidebar {
+  width: 260px;
+  background: var(--sidebar-bg);
+  color: var(--sidebar-text);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-.header h1 {
-  font-size: 2.5rem;
+.sidebar h1 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 2.5rem;
   color: var(--primary);
-  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-}
-
-.card {
-  background: var(--card-bg);
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid var(--border);
-}
-
-.card h2 {
-  margin-top: 0;
-  border-bottom: 2px solid var(--bg-color);
-  padding-bottom: 0.5rem;
-}
-
-button {
-  background-color: var(--primary);
-  color: white;
-  border: none;
-  padding: 0.75rem 1.5rem;
+.nav-link {
+  padding: 0.75rem 1rem;
   border-radius: 8px;
-  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
-  width: 100%;
-  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
 }
 
-button:hover:not(:disabled) {
-  background-color: var(--primary-hover);
+.nav-link:hover, .nav-link.active {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--primary);
+}
+
+/* Main Content Area */
+.main-content {
+  flex: 1;
+  padding: 2.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.glass-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--card-shadow);
+  border: 1px solid #e2e8f0;
+}
+
+.tool-header {
+  margin-bottom: 2rem;
+}
+
+.tool-header h2 { font-size: 1.8rem; margin: 0; }
+.tool-header p { color: #64748b; }
+
+/* Input & Button Refinement */
+button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s, background 0.2s;
+}
+
+button:hover { background: #2563eb; transform: translateY(-1px); }
+button:active { transform: translateY(0); }
+
+.result-area {
+  margin-top: 1.5rem;
+  padding: 1.5rem;
+  background: #f1f5f9;
+  border-radius: 12px;
+  border-left: 4px solid var(--primary);
+  line-height: 1.7;
+}
+button:disabled {
+  background-color: #94a3b8; /* A muted gray color */
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Optional: Add a simple pulse animation */
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
 }
 
 button:disabled {
-  background-color: #94a3b8;
-  cursor: not-allowed;
+  animation: pulse 1.5s infinite ease-in-out;
+}
+/* Container for the flashcard deck */
+.flashcard-container {
+  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 2rem;
 }
 
-input[type="text"], input[type="file"] {
+/* The actual flip card */
+.flashcard {
   width: 100%;
-  padding: 0.75rem;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  margin-top: 0.5rem;
-  box-sizing: border-box;
+  max-width: 450px;
+  height: 280px;
+  cursor: pointer;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.result-box {
-  margin-top: 1rem;
-  padding: 1rem;
-  background-color: var(--bg-color);
-  border-radius: 8px;
-  white-space: pre-wrap; /* Keeps the formatting from the AI */
-  font-size: 0.95rem;
-  line-height: 1.6;
-  max-height: 300px;
-  overflow-y: auto;
+.flashcard.flipped {
+  transform: rotateY(180deg);
 }
 
-.status-msg {
-  color: #10b981;
-  font-weight: bold;
+.flashcard-front, .flashcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: var(--card-shadow);
+  font-size: 1.25rem;
+  font-weight: 500;
   text-align: center;
-  margin-top: 1rem;
+  border: 1px solid #e2e8f0;
+}
+
+.flashcard-front {
+  background: white;
+  color: var(--primary);
+}
+
+.flashcard-back {
+  background: #eff6ff;
+  color: #1e293b;
+  transform: rotateY(180deg);
+}
+
+.card-controls {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.counter {
+  font-weight: 600;
+  color: #64748b;
 }

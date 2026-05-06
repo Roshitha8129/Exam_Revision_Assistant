@@ -9,4 +9,3 @@ pypdf
 python-multipart
 groq
 python-dotenv
-python-docx

@@ -11,7 +11,7 @@ export default function Quiz() {
       const data = await response.json();
       setQuiz(data.quiz);
     } catch (error) {
-      console.error(error);
+        console.error(error);
       setQuiz('Error generating quiz.');
     } finally {
       setLoading(false);
@@ -19,21 +19,15 @@ export default function Quiz() {
   };
 
   return (
-    <>
-      <div className="tool-header">
-        <h2>Practice Quiz</h2>
-        <p>Test your retention with AI-generated assessment questions.</p>
-      </div>
-
-      {/* 
-          1. disabled={loading} prevents multiple clicks while fetching 
-          2. The ternary operator changes the button text dynamically
-      */}
+    <div className="card">
+      <h2>📝 Practice Quiz</h2>
+      <p style={{ color: 'var(--text-light)' }}>Test your knowledge with AI-generated MCQs.</p>
+      
       <button onClick={generateQuiz} disabled={loading}>
-        {loading ? "Generating Questions..." : "Start Quiz"}
+        {loading ? 'Generating 5 Questions...' : 'Generate Quiz'}
       </button>
 
-      {quiz && <div className="result-area">{quiz}</div>}
-    </>
+      {quiz && <div className="result-box">{quiz}</div>}
+    </div>
   );
 }

@@ -6,7 +6,8 @@ export default function Upload() {
   const [loading, setLoading] = useState(false);
 
   const handleUpload = async () => {
-    if (!file) return alert('Please select a PDF first!');
+    // Updated alert to be more general
+    if (!file) return alert('Please select a document first!');
     
     setLoading(true);
     setStatus('');
@@ -17,13 +18,14 @@ export default function Upload() {
     try {
       const response = await fetch('http://127.0.0.1:8000/upload', {
         method: 'POST',
-        body: formData, // No headers needed for FormData, browser sets it
+        body: formData,
       });
 
       if (response.ok) {
-        setStatus('PDF processed successfully! 🎉 You can now generate study materials.');
+        // Updated success message for any document type
+        setStatus('Document processed successfully! 🎉 You can now generate study materials.');
       } else {
-        setStatus('Failed to upload PDF.');
+        setStatus('Failed to upload document.');
       }
     } catch (error) {
       console.error(error);
@@ -34,21 +36,31 @@ export default function Upload() {
   };
 
   return (
-    <div className="card">
-      <h2>📁 Step 1: Upload Document</h2>
-      <p style={{ color: 'var(--text-light)' }}>Upload your syllabus or resume to get started.</p>
+    <>
+      <div className="tool-header">
+        <h2>📁 Document Management</h2>
+        <p>Upload your syllabus, notes, or resume (PDF, DOCX, or TXT) to train the AI.</p>
+      </div>
       
-      <input 
-        type="file" 
-        accept="application/pdf" 
-        onChange={(e) => setFile(e.target.files[0])} 
-      />
+      <div style={{ marginBottom: '1.5rem' }}>
+        <input 
+          type="file" 
+          /* Updated: Now allows PDF, Word, and Text files in the picker */
+          accept=".pdf, .docx, .txt" 
+          onChange={(e) => setFile(e.target.files[0])} 
+          className="file-input"
+        />
+      </div>
       
       <button onClick={handleUpload} disabled={loading || !file}>
-        {loading ? 'Uploading & Reading...' : 'Upload PDF'}
+        {loading ? 'Processing Document...' : 'Upload & Analyze'}
       </button>
 
-      {status && <p className="status-msg">{status}</p>}
-    </div>
+      {status && (
+        <div className="result-area" style={{ borderLeftColor: '#10b981', color: '#065f46' }}>
+          {status}
+        </div>
+      )}
+    </>
   );
 }
